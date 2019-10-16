@@ -173,15 +173,16 @@ static DWORD WINAPI rdpei_schedule_thread(LPVOID arg)
 {
 	DWORD status;
 	RDPEI_PLUGIN* rdpei = (RDPEI_PLUGIN*) arg;
+    UINT error = CHANNEL_RC_OK;
+
+    if (!rdpei)
+    {
+        error = ERROR_INVALID_PARAMETER;
+        goto out;
+    }
+
 	RdpeiClientContext* context = (RdpeiClientContext*) rdpei->iface.pInterface;
 	HANDLE hdl[] = {rdpei->event, rdpei->stopEvent};
-	UINT error = CHANNEL_RC_OK;
-
-	if (!rdpei)
-	{
-		error = ERROR_INVALID_PARAMETER;
-		goto out;
-	}
 
 	if (!context)
 	{

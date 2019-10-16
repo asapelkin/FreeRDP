@@ -172,7 +172,7 @@ static BOOL rdp_read_server_auto_reconnect_cookie(rdpRdp* rdp, wStream* s, logon
 	info->LogonId = autoReconnectCookie->logonId;
 	CopyMemory(info->ArcRandomBits, p, 16);
 
-	if ((settings->PrintReconnectCookie) && (autoReconnectCookie->cbLen > 0))
+	if ((settings->PrintReconnectCookie))
 	{
 		char* base64;
 		base64 = crypto_base64_encode((BYTE*) autoReconnectCookie, sizeof(ARC_SC_PRIVATE_PACKET));
@@ -784,7 +784,7 @@ static void rdp_write_info_packet(rdpRdp* rdp, wStream* s)
 	else
 	{
 		/* user name provided by the expert for connecting to the novice computer */
-		cbUserName = ConvertToUnicode(CP_UTF8, 0, settings->Username, -1, &userNameW, 0) * 2;
+		cbUserName = ConvertToUnicode(CP_UTF8, 0, settings->RedirectionUsername, -1, &userNameW, 0) * 2;
 	}
 
 	/* excludes (!) the length of the mandatory null terminator */

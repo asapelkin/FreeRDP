@@ -843,7 +843,7 @@ rdpCertificateData* crypto_get_certificate_data(X509* xcert, const char* hostnam
 
 	issuer = crypto_cert_issuer(xcert);
 	subject = crypto_cert_subject(xcert);
-	certdata = certificate_data_new(hostname, port, issuer, subject, fp);
+	certdata = certificate_data_new(hostname, port, subject, issuer, fp);
 	free(subject);
 	free(issuer);
 	free(fp);

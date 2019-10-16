@@ -68,10 +68,7 @@ static BOOL certificate_line_is_comment(const char* line, size_t length)
 		}
 	}
 
-	if (length < 1)
-		return TRUE;
-
-	return FALSE;
+	return TRUE;
 }
 
 BOOL certificate_store_init(rdpCertificateStore* certificate_store)
@@ -723,7 +720,8 @@ rdpCertificateData* certificate_data_new(const char* hostname, UINT16 port, cons
 	    !certdata->issuer || !certdata->fingerprint)
 		goto fail;
 
-	for (i = 0; i < strlen(hostname); i++)
+    size_t hostlen = strlen(hostname);
+	for (i = 0; i < hostlen; i++)
 		certdata->hostname[i] = tolower(certdata->hostname[i]);
 
 	return certdata;
